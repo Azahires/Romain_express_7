@@ -22,23 +22,18 @@ app.get("/api/users", userHandlers.getUsers);
 app.get("/api/users/:id", userHandlers.getUserById);
 
 
-app.post("/api/movies", verifyToken, movieHandlers.postMovie);
+
+app.post("/api/users", hashPassword, userHandlers.postUser);
 app.post("/api/login", userHandlers.getUserByEmailWithPasswordAndPassToNext, verifyPassword)
 
+app.use(verifyToken)
+
+app.post("/api/movies", movieHandlers.postMovie);
 app.put("/api/movies/:id", movieHandlers.updateMovie);
 app.delete("/api/movies/:id", movieHandlers.deleteMovie);
 
-app.post("/api/users", hashPassword, userHandlers.postUser);
 app.put("/api/users/:id", userHandlers.updateUser);
 app.delete("/api/users/:id", userHandlers.deleteUser);
-
-// const isItDwigth = (req, res) => {
-//   if (req.body.email === "dwigth@theoffice.com" && req.body.password === "123456") {
-//     res.send("credentials are valid")
-//   } else {
-//     res.sendStatus(401)
-//   }
-// }
 
 
 
